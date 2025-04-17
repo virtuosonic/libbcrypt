@@ -15,7 +15,11 @@ cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 
 project(bcrypt)
 
-enable_language(ASM)
+if(MSVC )
+	enable_language(ASM_MASM)
+else()
+	enable_language(ASM)
+endif()
 
 set(MYLIB_VERSION_MAJOR 1)
 set(MYLIB_VERSION_MINOR 0)
@@ -35,10 +39,15 @@ endif ()
 
 set( CMAKE_COLOR_MAKEFILE ON )
 
-set( CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -Wall --std=c++11 -O3" )
-set( CMAKE_C_FLAGS  "${CMAKE_C_FLAGS} -Wall -O3" )
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set( CMAKE_ASM_FLAGS "${CXXFLAGS} -x assembler-with-cpp")
+if (NOT MSVC)
+	set( CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -Wall -O3" )
+	set( CMAKE_C_FLAGS  "${CMAKE_C_FLAGS} -Wall -O3" )
+	set( CMAKE_ASM_FLAGS "${CXXFLAGS} -x assembler-with-cpp")
+endif()
+
 
 set( SRCFILES
 	${CMAKE_CURRENT_SOURCE_DIR}/src/bcrypt.c
