@@ -11,20 +11,15 @@
 #
 ###################################################################################
 
-cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.5)
 
-project(bcrypt)
+project(bcrypt VERSION 1.0.0 )
 
 if(MSVC )
 	enable_language(ASM_MASM)
 else()
 	enable_language(ASM)
 endif()
-
-set(MYLIB_VERSION_MAJOR 1)
-set(MYLIB_VERSION_MINOR 0)
-set(MYLIB_VERSION_PATCH 0)
-set(MYLIB_VERSION_STRING ${MYLIB_VERSION_MAJOR}.${MYLIB_VERSION_MINOR}.${MYLIB_VERSION_PATCH})
 
 # just doing cmake . will build a shared or static lib and honor existing environment setting
 # to force build static, cmake . -DBUILD_SHARED_LIBS=Off
@@ -68,7 +63,7 @@ add_library(
 	${SRCFILES}
 )
 
-set_target_properties(${PROJECT_NAME} PROPERTIES VERSION ${MYLIB_VERSION_STRING} SOVERSION ${MYLIB_VERSION_MAJOR})
+set_target_properties(${PROJECT_NAME} PROPERTIES VERSION ${PROJECT_VERSION} SOVERSION ${PROJECT_VERSION_MAJOR})
 
 set_target_properties(${PROJECT_NAME} PROPERTIES PUBLIC_HEADER include/bcrypt/BCrypt.hpp)
 
@@ -94,9 +89,6 @@ SET(CPACK_GENERATOR "DEB")
 SET(CPACK_SET_DESTDIR ON)
 
 SET(CPACK_DEBIAN_PACKAGE_MAINTAINER "Manuel Romei")
-SET(CPACK_PACKAGE_VERSION "1.0.0")
-SET(CPACK_PACKAGE_VERSION_MAJOR "1")
-SET(CPACK_PACKAGE_VERSION_MINOR "0")
-SET(CPACK_PACKAGE_VERSION_PATCH "0")
+
 
 INCLUDE(CPack)
