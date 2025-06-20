@@ -13,7 +13,7 @@
 
 cmake_minimum_required(VERSION 3.5)
 
-project(bcrypt VERSION 1.0.0 )
+project(bcrypt VERSION 1.0.0 LANGUAGES C CXX )
 
 if(MSVC )
 	enable_language(ASM_MASM)
@@ -50,6 +50,13 @@ set( SRCFILES
 	${CMAKE_CURRENT_SOURCE_DIR}/src/crypt_gensalt.c
 	${CMAKE_CURRENT_SOURCE_DIR}/src/wrapper.c
 	${CMAKE_CURRENT_SOURCE_DIR}/src/x86.S
+	${CMAKE_CURRENT_SOURCE_DIR}/include/bcrypt/bcrypt.h
+	${CMAKE_CURRENT_SOURCE_DIR}/include/bcrypt/BCrypt.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/include/bcrypt/crypt.h
+	${CMAKE_CURRENT_SOURCE_DIR}/include/bcrypt/crypt_blowfish.h
+	${CMAKE_CURRENT_SOURCE_DIR}/include/bcrypt/crypt_gensalt.h
+	${CMAKE_CURRENT_SOURCE_DIR}/include/bcrypt/ow-crypt.h
+	${CMAKE_CURRENT_SOURCE_DIR}/include/bcrypt/ow-crypt.h
 )
 
 if (NOT WIN32)
@@ -61,6 +68,7 @@ include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/include)
 add_library(
 	${PROJECT_NAME}
 	${SRCFILES}
+	src/wrapper.h
 )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES VERSION ${PROJECT_VERSION} SOVERSION ${PROJECT_VERSION_MAJOR})
