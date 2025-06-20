@@ -78,9 +78,14 @@ set_target_properties(${PROJECT_NAME} PROPERTIES PUBLIC_HEADER include/bcrypt/BC
 target_include_directories(${PROJECT_NAME} PRIVATE include)
 target_include_directories(${PROJECT_NAME} PRIVATE src)
 
-add_executable( ${PROJECT_NAME}_test ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp)
+# optional test
+option(TEST "Build test executable" OFF)
+if(TEST)
+	add_executable( ${PROJECT_NAME}_test ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp)
+	target_link_libraries( ${PROJECT_NAME}_test ${PROJECT_NAME})
+endif()
 
-target_link_libraries( ${PROJECT_NAME}_test ${PROJECT_NAME})
+
 
 include(GNUInstallDirs)
 
