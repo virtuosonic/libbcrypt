@@ -15,14 +15,12 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-#ifdef _WIN32
-#include <io.h> // For _close and _read
-#pragma warning(disable: 4996) // Disable deprecation warnings for _close and _read
-#elif _WIN64
-#else
+#include <errno.h>
+
+#if !defined(_WIN32) && !defined(_WIN64)
 #include <unistd.h>
 #endif
-#include <errno.h>
+
 
 #if defined(_WIN32) || defined(_WIN64)
 // On windows we need to generate random bytes differently.
@@ -44,6 +42,7 @@ typedef __int64 ssize_t;
 
 #define RANDBYTES (16)
 
+#if !defined(_WIN32) && !defined(_WIN64)
 static int try_close(int fd)
 {
 	int ret;
@@ -81,6 +80,7 @@ static int try_read(int fd, char *out, size_t count)
 
 	return 0;
 }
+#endif
 
 /*
  * This is a best effort implementation. Nothing prevents a compiler from
