@@ -13,7 +13,7 @@
 
 cmake_minimum_required(VERSION 3.5)
 
-project(bcrypt VERSION 1.0.0 LANGUAGES C CXX )
+project(bcrypt VERSION 1.0.1 LANGUAGES C CXX )
 
 if(MSVC )
 	enable_language(ASM_MASM)

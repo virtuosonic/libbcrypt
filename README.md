@@ -1,5 +1,10 @@
 # libbcrypt
-A c++ wrapper around bcrypt password hashing
+A c++ wrapper around bcrypt password hashing.
+
+This is a fork of [trusch/libbcrypt](https://github.com/trusch/libbcrypt) it provides the following improvements
+- Compilation using cmake/msvc
+- Fixed compilation warnings
+- Made tests optional
 
 ## How to build this
 This is a CMake based project:
